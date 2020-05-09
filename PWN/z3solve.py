@@ -1,0 +1,83 @@
+from z3 import *
+
+def main():
+
+  flag = [BitVec('flag_{}'.format(i+1), 8) for i in range(32)]
+
+  s = Solver()
+  s.add((flag[20] ^ 0x2B) == flag[7])
+  s.add(flag[13] == 116)
+  s.add(4 * flag[11] == 380)
+  s.add((flag[6] ^ 0x53) == flag[14])
+  s.add(flag[8] == 122)
+  s.add(flag[16] - flag[7] == 20)
+  s.add(flag[2] - flag[7] == -43)
+  s.add(flag[21] == 95)
+  s.add((flag[2] ^ 0x47) == flag[3])
+  s.add(flag[13] == 116)
+  s.add((flag[20] & 0x45) == 68)
+  s.add((flag[8] & 0x15) == 16)
+  s.add(flag[12] == 95)
+  s.add(flag[13] == 116)
+  s.add(flag[10] == 95)
+  s.add((flag[8] & 0xAC) == 40)
+  s.add(flag[16] == 115)
+  s.add((flag[22] & 0x1D) == 24)
+  s.add(flag[9] == 51)
+  s.add(flag[5] == 49)
+  s.add(4 * flag[19] == 456)
+  s.add(flag[1] == 108)
+  s.add((flag[19] & 0x49) == 64)
+  s.add(flag[4] == 115)
+  s.add((flag[2] & flag[11]) == 20)
+  s.add(flag[4] + flag[5] == 164)
+  s.add((flag[10] ^ 0x2B) == flag[17])
+  s.add((flag[12] ^ 0x2C) == flag[4])
+  s.add(flag[19] - flag[21] == 19)
+  s.add(flag[12] == 95)
+  s.add(flag[19] == 114)
+  s.add(flag[17] + flag[18] == 168)
+  s.add(flag[22] == 58)
+  s.add(flag[3] + flag[7] == 210)
+  s.add(flag[20] == 116)
+  s.add(flag[19] == 114)
+  s.add(flag[12] == 95)
+  s.add(flag[2] == 52)
+  s.add(flag[23] == 41)
+  s.add(flag[10] == 95)
+  s.add(flag[21] == 95)
+  s.add(flag[3] + flag[2] == 167)
+  s.add(flag[6] == 99)
+  s.add((flag[22] & 0xED) == 40)
+  s.add((flag[12] & 0xAC) == 12)
+  s.add((flag[18] ^ 0x6B) == flag[15])
+  s.add((flag[16] & 0x7A) == 114)
+  s.add((flag[6] ^ 0x3C) == flag[21])
+  s.add(flag[17] - flag[14] == 68)
+  s.add((flag[19] ^ 0x2D) == flag[10])
+  s.add(4 * flag[12] == 380)
+  s.add(flag[12] == flag[7])
+  s.add(flag[19] - flag[13] == -2)
+  s.add((flag[12] & 0x38) == 24)
+  s.add(flag[20] == 116)
+  s.add(flag[22] - flag[5] == 9)
+  s.add(flag[22] == 58)
+  s.add(flag[16] == 115)
+  s.add(flag[23] + flag[14] == 89)
+  s.add((flag[15] & 0x9F) == 31)
+  s.add(flag[4] == 115)
+  s.add((flag[6] ^ 0x3C) == flag[11])
+  #and check if a solution exists. If there is one, it will be printed.
+
+  flag_str = ""
+  if s.check():
+    m = s.model()
+    for i in range(32):
+      if m[flag[i]] != None:
+        var = m[flag[i]].as_long()
+        flag_str += chr(var)
+
+  print(flag_str)
+
+if __name__ == '__main__':
+  main()
